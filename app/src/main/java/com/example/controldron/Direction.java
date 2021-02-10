@@ -1,17 +1,14 @@
 package com.example.controldron;
 
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
-import java.io.IOException;
 
 public class Direction implements View.OnTouchListener {
 
     private MainActivity mainActivity;
     private int localX, localY;
     private int sendX, sendY;
-    private char send = (char) (8*15 + 8);
+    private char send = (char) (7*15 + 7);
     private float puntazoX, puntazoY;
 
     public Direction(MainActivity activity){
@@ -26,20 +23,20 @@ public class Direction implements View.OnTouchListener {
         }if(motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
             setPos(motionEvent);
         }else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
-            mainActivity.getPuntazo().animate().y(localY + mainActivity.getDirection().getHeight()/2f - mainActivity.getPuntazo().getWidth()/2f).x(localX + mainActivity.getDirection().getWidth()/2f - mainActivity.getPuntazo().getWidth()/2f);
+            mainActivity.getPuntero().animate().y(localY + mainActivity.getDirection().getHeight()/2f - mainActivity.getPuntero().getWidth()/2f).x(localX + mainActivity.getDirection().getWidth()/2f - mainActivity.getPuntero().getWidth()/2f);
             sendY = 0;
             sendX = 0;
-            send = (char) (8*15 + 8);
+            send = (char) (7*15 + 7);
         }
         return true;
     }
 
     private void setPos(MotionEvent motionEvent){
         if(belowR(motionEvent.getRawX()-localX-mainActivity.getDirection().getWidth()/2f, motionEvent.getRawY()-localY-mainActivity.getDirection().getHeight()/2f)){
-            puntazoX = motionEvent.getRawX() - mainActivity.getPuntazo().getWidth()/2f;
-            puntazoY = motionEvent.getRawY() - mainActivity.getPuntazo().getWidth()/2f;
-            mainActivity.getPuntazo().setX(puntazoX);
-            mainActivity.getPuntazo().setY(puntazoY);
+            puntazoX = motionEvent.getRawX() - mainActivity.getPuntero().getWidth()/2f;
+            puntazoY = motionEvent.getRawY() - mainActivity.getPuntero().getWidth()/2f;
+            mainActivity.getPuntero().setX(puntazoX);
+            mainActivity.getPuntero().setY(puntazoY);
             sendX = (int) (motionEvent.getRawX()  - localX)*15/755;
             sendY = (int) (motionEvent.getRawY()  - localY)*15/755;
             send = (char) ((sendY-1)*15 + sendX-1);
